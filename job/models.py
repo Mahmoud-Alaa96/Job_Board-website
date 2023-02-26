@@ -7,6 +7,12 @@ JOB_TYPE = (
     ("Part Time","Part Time"),
 )
 
+def image_upload(instance, filename ):
+    imagename, extention = filename.split(".")
+    return "jobs/%s.%s"%(instance.id,extention )
+
+
+
 # create table in DataBase 
 class Job(models.Model):
     title = models.CharField(max_length=100) #columns
@@ -18,6 +24,7 @@ class Job(models.Model):
     salary = models.IntegerField(default=0)
     experience = models.IntegerField(default=0)
     category = models.ForeignKey("Category", on_delete=models.CASCADE)  
+    image = models.ImageField(upload_to=image_upload)  
 
     def __str__(self):
         return self.title
